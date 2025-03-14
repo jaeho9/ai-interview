@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -16,6 +17,13 @@ const difficulties = ["초급", "중급", "고급"];
 export default function HomePage() {
   const [topic, setTopic] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const router = useRouter(); // useRouter
+
+  const startInterview = () => {
+    if (topic && difficulty) {
+      router.push(`/interview?topic=${topic}&difficulty=${difficulty}`);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground px-6">
@@ -72,9 +80,10 @@ export default function HomePage() {
       <Button
         className="px-6 py-3 text-lg font-semibold shadow-lg transition-transform hover:scale-105"
         disabled={!topic || !difficulty}
-        onClick={() =>
-          alert(`면접 시작! 주제: ${topic}, 난이도: ${difficulty}`)
-        }
+        // onClick={() =>
+        //   alert(`면접 시작! 주제: ${topic}, 난이도: ${difficulty}`)
+        // }
+        onClick={startInterview}
       >
         면접 연습 시작
       </Button>
